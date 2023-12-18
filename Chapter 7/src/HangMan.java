@@ -16,7 +16,7 @@ public class HangMan
 			dictionary = buildDictionary();
                         games = 1; wins = 0; losses = 0;
 //                      String answer = dictionary[(int)Math.random()*45402];
-                        System.out.println(" welcome, would you like to play hangman y/n "); 
+                        System.out.println(" welcome to hangman! "); 
                         
                         boolean playing = true;
                                 
@@ -29,33 +29,29 @@ public class HangMan
                         
                         while(game)
                         {
-                          System.out.println(Underscore);
+                         Output(Underscore);
                           
                           System.out.println("your guess: ");
-                          char guess = s.next().toUpperCase().charAt(0);
+                          char c = s.next().toUpperCase().charAt(0);
+                          Letters = Letters.replace(String.valueOf(c),"");
                           
                           {
                     
-                          while(!Letter(guess))
+                          while(!Letter(c))
                           
-                          if (guess == '$')System.out.println("unguessed letters: ");
+                          if (c == '$')System.out.println("unguessed letters: ");
                           showCharacters(Letters, guessed);
                             
                           }
                           
                         System.out.println("invalid character");
                         System.out.print("your guess: ");
-                        guess = s.next().toUpperCase().charAt(0);
+                        c = s.next().toUpperCase().charAt(0);
                         
                         }
 //                        char [] characters = answer.toCharArray();
-                        
-                        
-                        
-//                      int result = playing(dictionary);
-                        
-//                        int winP = 0;
-
+                  
+//                      char c == guess
                         char c = s.next().toUpperCase().charAt(0);
 //                      remove letter if already guessed.
                         Letters = Letters.replace(String.valueOf(c), "");
@@ -85,7 +81,7 @@ public class HangMan
                         }
                            
                         
-                            boolean GameOver = false; 
+                            boolean GameOver = true; 
                             while (GameOver)
                         {
                             games++;
@@ -163,12 +159,12 @@ public class HangMan
         return (c<='z' && c>= 'a' || c<='Z' && c>= 'A');
     }
     
-    public static void ShowCharacters(String length, boolean[] guess)
-    {
-        
-        
-        
-    }
+//    public static void ShowCharacters(String length, boolean[] guess)
+//    {
+//        
+//        
+//        
+//    }
     
        public static void showCharacters(String l, boolean[] g){
             for(int x =0; x < l.length(); x++){
@@ -220,6 +216,15 @@ public class HangMan
 		System.out.println(wordList.length + " words loaded.");  //outputs the size of the Array built
 		return wordList;  
 	}
+            public static void Output(char [] underscore)
+            {
+                for (int x =0; x < underscore.length; x++)
+                {
+       
+                    if(x == underscore.length-1)System.out.println(underscore[x]);
+                    else System.out.print(underscore[x] + " ");
+                }
+            }
  
         }
 

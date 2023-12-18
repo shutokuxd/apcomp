@@ -19,7 +19,7 @@ public class HangMan
                         
                         boolean playing = false;
                         while(playing == true)
-                        {
+                        {//
             
                         char [] characters = answer.toCharArray();
                         

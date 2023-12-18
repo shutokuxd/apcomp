@@ -8,32 +8,59 @@ public class HangMan
     public static void main(String[] args) throws Exception 
 	{		int miss = 0;
                         int games;
-                       
                         boolean [] guessed = new boolean [26];
+                        
                         Scanner s = new Scanner (System.in);      
                         String Letters = "ABCDEFGHIGKLMNOPQRSTUVWXYZ";
 			String[] dictionary = new String[45402];
 			dictionary = buildDictionary();
-                        String answer = dictionary[(int)Math.random()*45402];
+                        games = 1; wins = 0; losses = 0;
+//                      String answer = dictionary[(int)Math.random()*45402];
                         System.out.println(" welcome, would you like to play hangman y/n "); 
                         
-                        boolean playing = false;
+                        boolean playing = true;
+                                
                         while(playing == true)
-                        {//
-            
-                        char [] characters = answer.toCharArray();
+                        {
+                        System.out.println("game #" + games);
+                        boolean game = true;
+                        char[] answer = dictionary[((int)Math.random()*45402)].toCharArray();
+                        char [] Underscore =  buildUnderscore(answer.length);
                         
+                        while(game)
+                        {
+                          System.out.println(Underscore);
+                          
+                          System.out.println("your guess: ");
+                          char guess = s.next().toUpperCase().charAt(0);
+                          
+                          {
+                    
+                          while(!Letter(guess))
+                          
+                          if (guess == '$')System.out.println("unguessed letters: ");
+                          showCharacters(Letters, guessed);
+                            
+                          }
+                          
+                        System.out.println("invalid character");
+                        System.out.print("your guess: ");
+                        guess = s.next().toUpperCase().charAt(0);
                         
                         }
+//                        char [] characters = answer.toCharArray();
+                        
+                        
+                        
 //                      int result = playing(dictionary);
-                        games = 1; wins = 0; losses = 0;
+                        
 //                        int winP = 0;
 
                         char c = s.next().toUpperCase().charAt(0);
 //                      remove letter if already guessed.
                         Letters = Letters.replace(String.valueOf(c), "");
                         guessed[c-65] = true;
-                        while(!isLetter(c) || guessed[(int)c-65])
+                        while(!Letter(c) || guessed[(int)c-65])
                         {
                             if(c == '$') 
                             {
@@ -50,7 +77,7 @@ public class HangMan
                             {
                                 System.out.println("you have already guessed that letter, try again!");
                             }
-                            else if (isLetter(c)==false)
+                            else if (Letter(c)==false)
                             {
                                 System.out.println("invalid character, try again!");
                             }
@@ -78,12 +105,27 @@ public class HangMan
                         
                         
                             
-
+                  }
         }
     
         static int wins, losses;
     
-    
+     public static boolean redo(char a, char[] word, char[] empty, String l, boolean[] g)
+     {
+            boolean hit = false;
+            String s =String.valueOf(a);
+            for (int i = 0; i < word.length; i++) {
+                if(word[i]==a){
+                    empty[i]=a;
+                    hit=true;
+                }
+            }
+            if(hit){
+                g[(int)a-64]=true;
+            }
+            l=l.replace(s,"");
+            return hit;
+        }
     
     
     
@@ -116,7 +158,7 @@ public class HangMan
     }
     
 //    checks if the guess is a letter
-    public static boolean isLetter(char c )
+    public static boolean Letter(char c )
     {
         return (c<='z' && c>= 'a' || c<='Z' && c>= 'A');
     }
@@ -128,6 +170,16 @@ public class HangMan
         
     }
     
+       public static void showCharacters(String l, boolean[] g){
+            for(int x =0; x < l.length(); x++){
+                if(!g[x]){
+                if(x==l.length()-1) System.out.println(l.charAt(x));
+                else System.out.print(l.charAt(x)+" ");
+                }
+            }
+        }
+        
+
 //    public static boolean isValid (char c, boolean [] guess)
 //    {
 //      return((isLetter(c)) && !guess[(int)c-65] || c == '$' || c == '*');
@@ -168,7 +220,6 @@ public class HangMan
 		System.out.println(wordList.length + " words loaded.");  //outputs the size of the Array built
 		return wordList;  
 	}
-    
  
         }
 
